@@ -1,6 +1,3 @@
-//
-// Created by Mark Fontenot on 6/2/2021.
-//
 
 #ifndef PA01_SENTIMENT_DSSTRING_H
 #define PA01_SENTIMENT_DSSTRING_H
@@ -28,6 +25,8 @@ private:
      *    A quick google search will return plenty of references on
      *    the c-string functions.
      **/
+     char *word;
+     int size;
 
 
 public:
@@ -67,6 +66,8 @@ public:
     bool operator== (const DSString&);
     bool operator> (const DSString&);
     bool operator> (const char*);
+    bool operator< (const DSString&);
+    bool operator< (const char*);
 
     /**
      * Subscript operator to access a particular character of a DSString object
