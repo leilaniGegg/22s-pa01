@@ -3,7 +3,10 @@
 #define PA01_SENTIMENT_DSSTRING_H
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <cstring>
+using namespace std;
 
 class DSString{
 
@@ -26,7 +29,6 @@ private:
      *    the c-string functions.
      **/
      char *word;
-     int size;
 
 
 public:
@@ -52,6 +54,11 @@ public:
      * @return
      */
     DSString operator+ (const DSString&);
+    /**
+     * Overloaded modifying string concat
+     * @return
+     */
+    DSString& operator+= (const DSString&);
 
     /**
      * Standard relational operators.  Feel free to add additional.
@@ -101,7 +108,11 @@ public:
      * Overloaded stream insertion operator to print the contents of this
      * string to the output stream in the first argument.
      **/
-    friend std::ostream& operator<< (std::ostream&, const DSString&);
+    friend ostream& operator<< (ostream&, const DSString&);
+
+    ifstream& getline(ifstream&, DSString&);
+    istream& getline(istream&, DSString&, const char&);
+    friend istream& operator>>(istream& is,DSString& obj);
 
     //You are free to add more functionality to the class.  For example,
     //you may want to add a find(...) function that will search for a
