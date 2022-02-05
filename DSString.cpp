@@ -36,13 +36,18 @@ DSString::~DSString(){
 //
 //works!
 DSString& DSString::operator= (const char* temp){
-        strcpy(word, temp);
-        return *this;
+    word = new char[strlen(temp) + 1];
+    strcpy(word, temp);
+    return *this;
 }
 //works!
 DSString& DSString::operator= (const DSString& temp){
-        strcpy(this->word, temp.word);
+    if(this == &temp){
         return *this;
+    }
+    word = new char[strlen(temp.word) + 1];
+    strcpy(this->word, temp.word);
+    return *this;
 }
 //working !!!!!!!!!!!!!!!wait double check
 DSString DSString::operator+ (const DSString& temp){
@@ -65,36 +70,35 @@ bool DSString::operator== (const char* temp){
 }
 //works
 bool DSString::operator== (const DSString& temp){
-    if (strcmp(this->word, temp.word) == 0)
-    {
+    if (strcmp(this->word, temp.word) == 0){
         return true;
     }
     return false;
 }
 //works
 bool DSString::operator> (const DSString& temp){
-    if (strcmp(this->word, temp.word) > 0){
+    if (strcmp(this->c_str(), temp.c_str()) > 0){
         return true;
     }
     return false;
 }
 //works
 bool DSString::operator> (const char* temp){
-    if (strcmp(word, temp) > 0){
+    if (strcmp(this->c_str(), temp) > 0){
         return true;
     }
     return false;
 }
-//works
+//works , back to const?
 bool DSString::operator< (const DSString& temp){
-    if (strcmp(this->word, temp.word) < 0){
+    if (strcmp(this->c_str(), temp.c_str()) < 0){
         return true;
     }
     return false;
 }
 //works
 bool DSString::operator< (const char* temp){
-    if (strcmp(word, temp) < 0){
+    if (strcmp(this->c_str(), temp) < 0){
         return true;
     }
     return false;
@@ -117,19 +121,30 @@ int DSString::getLength(){
 }
 //works!
 DSString DSString::substring(int start, int numChars){
-    //think about adding error handling
-    int substringLength = this->getLength() + 1; // plus one to include the null character at the end
-    char tempWord[substringLength];
-    int i, x;
-    for (i = start, x = 0; i < start + numChars && i !='\0' && x < substringLength; i++, x++){
-        tempWord[x] = this->word[i];
+    char tempWord[numChars + 1];
+    int i = 0;
+    while(i < numChars) {
+        tempWord[i] = word[start + i];
+        i++;
     }
-    DSString newString(tempWord);  //should this use 'new' or not?
-    return newString;
+    return DSString(tempWord);
 }
-//works? not sure the point of this
-char* DSString::c_str(){
-    return this->word;
+
+DSString DSString::substringIndex(int start, int end){
+    char tempWord[end - start];
+    int i = start;
+    int x = 0;
+    while(i < end) {
+        tempWord[x] = word[i];
+        i++;
+        x++;
+    }
+    return DSString(tempWord);
+}
+
+//works?
+char * DSString::c_str() const {
+    return word;
 }
 //works now!
 ostream& operator<< (ostream& output, const DSString& temp){
@@ -158,4 +173,29 @@ istream& operator>>(istream& inSS, DSString& word){
     inSS >> temp;
     word = temp;
     return inSS;
+}
+//not sure about this
+/*size_t find_first_of (const DSString& word, size_t pos = 0){
+    return word.find_first_of (word.c_str(), 0);
+}*/
+//????
+DSString& DSString::erase (const int location){
+    /*DSString temp = this->substringIndex(0, location);
+    DSString temp2 = this->substringIndex(location + 1, this->getLength() - 1);
+    DSString temp3 = temp+temp2;
+    strcpy(this->word, temp3.c_str());
+    return *this;*/
+    char temp[location];
+    for(int i = 0; i < location; i++){
+        temp[i] = this->word[i];
+    }
+    char temp2[this->getLength()-location];
+
+    for(int i = 0; i < this->getLength()-location; i++){
+        temp2[i] = this->word[location + i + 1 ];
+    }
+    DSString j = DSString(temp) + DSString(temp2);
+    *this = j;
+    return *this;
+
 }

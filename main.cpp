@@ -1,58 +1,38 @@
 #include <iostream>
-#include <fstream>
+#include "oleanderstemminglibrary/include/olestem/stemming/english_stem.h"
 #include "DSString.h"
+#include "FileManager.h"
+#include "TrainingData.h"
 #include <vector>
-#include <cstring>
 #include <iomanip>
-#include <map>
-#include <iterator>
+#define CATCH_CONFIG_RUNNER
+#include "catch.hpp"
 
 using namespace std;
 
-int main() {
-    ifstream trainingFile("data/train_dataset_20k.csv");
-    /*map<int, DSString> order;
-    order.insert(pair<int, DSString>(1, "helo"));
-    map<int, DSString>::iterator itr;
-    for(itr = order.begin(); itr != order.end(); itr++){
-        cout << itr->first << " " << itr->second;
-    } */
+int main(int argc, char* const argv[]) {
+    //if(argc == 1){
+      //  return Catch::Session().run();
+    //}
+    //else {
 
-    vector<vector<DSString>> trainingData;
-    trainingFile.open("data/train_dataset_20k.csv");
-    if(!trainingFile.is_open()){
-       cout << "Failed to open training file!" << endl;
-        return -1;
-    }
+        //FileManager x;
+        //TrainingData y;
+       // y.retrieveTS(x.readFile("data/train_dataset_20k.csv"));
+        //y.displayTS();
+        /*DSString p("test");
+        wstring word(L"documentation");
+        stemming::english_stem<DSString> StemEnglish;
+        wcout << L"(English) Original text:\t" << p.c_str() << endl;
+        StemEnglish(p);
+        wcout << L"(English) Stemmed text:\t" << p.c_str() << endl; */
+        DSString x("potato");
+        x.erase(2);
+        cout << x << endl;
 
-    char* line;
-    trainingFile.get(line, 500, '\n');
-    /*while(trainingFile.getline(line,500, '\n')){
+        //ifstream trainingFile;
 
-        DSString sValue, ID, date, trash, username, tweet;
-
-        ID.getline(inSS, ID, ',');
-        date.getline(inSS, date, ',');
-        //just delete this stupid idiot
-        trash.getline(inSS, trash, ',');
-        username.getline(inSS, username, ',');
-        tweet.getline(inSS, tweet, '\n');
-        row.push_back(sValue);
-        row.push_back(ID);
-        row.push_back(date);
-        row.push_back(username);
-        row.push_back(tweet);
-        trainingData.push_back(row);
-    }
-*/
-    for (int r = 0; r < trainingData.size(); r++){
-        for (int c = 0; c < trainingData.at(0).size(); c++){
-            cout << trainingData.at(r).at(c) << " ";
-        }
-        cout << endl;
-    }
-
-    trainingFile.close();
+        //vector<vector<DSString>> trainingData;
 
     return 0;
 }

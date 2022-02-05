@@ -1,4 +1,5 @@
-
+//Resources
+//(helped me figure out how to use maps with DSString) https://stackoverflow.com/questions/1102392/how-can-i-use-stdmaps-with-user-defined-types-as-key
 #ifndef PA01_SENTIMENT_DSSTRING_H
 #define PA01_SENTIMENT_DSSTRING_H
 
@@ -6,6 +7,9 @@
 #include <fstream>
 #include <sstream>
 #include <cstring>
+#include <map>
+#include <iterator>
+
 using namespace std;
 
 class DSString{
@@ -29,6 +33,7 @@ private:
      *    the c-string functions.
      **/
      char *word;
+    friend struct DSStringCompare;
 
 
 public:
@@ -38,6 +43,8 @@ public:
      *
      * Make sure you do proper memory management.
      **/
+    static const size_t npos = -1; //not sure about this?? maybe for oleander to work
+
     DSString();
     DSString(const char*);
     DSString(const DSString&);
@@ -73,7 +80,7 @@ public:
     bool operator== (const DSString&);
     bool operator> (const DSString&);
     bool operator> (const char*);
-    bool operator< (const DSString&);
+    bool operator<(const DSString&);
     bool operator< (const char*);
 
     /**
@@ -97,12 +104,13 @@ public:
      * @return a DSString object containing the requested substring
      **/
     DSString substring(int start, int numChars);
+    DSString substringIndex(int start, int end); //substring from start to end index-1
 
     /**
      * the c_str function returns a null-terminated c-string holding the
      * contents of this object.
      **/
-    char* c_str();
+    char * c_str() const;  //may need to get rid of const
 
     /**
      * Overloaded stream insertion operator to print the contents of this
@@ -113,6 +121,8 @@ public:
     ifstream& getline(ifstream&, DSString&);
     istream& getline(istream&, DSString&, const char&);
     friend istream& operator>>(istream& is,DSString& obj);
+    size_t find_first_of (const DSString& s, size_t pos = 0) const;
+    DSString& erase (const int);
 
     //You are free to add more functionality to the class.  For example,
     //you may want to add a find(...) function that will search for a
@@ -121,8 +131,16 @@ public:
     //Further - you will be able to update and modify this class as the
     //semester progresses.
 
+
 };
 
-
+struct DSStringCompare{
+    bool operator() (const DSString& left, const DSString& right) const {
+        if (strcmp(left.c_str(), right.c_str()) < 0) {
+            return true;
+        }
+        return false;
+    }
+};
 
 #endif //PA01_SENTIMENT_DSSTRING_H
