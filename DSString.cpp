@@ -77,28 +77,28 @@ bool DSString::operator== (const DSString& temp){
 }
 //works
 bool DSString::operator> (const DSString& temp){
-    if (strcmp(this->c_str(), temp.c_str()) > 0){
+    if (strcasecmp(this->c_str(), temp.c_str()) > 0){
         return true;
     }
     return false;
 }
 //works
 bool DSString::operator> (const char* temp){
-    if (strcmp(this->c_str(), temp) > 0){
+    if (strcasecmp(this->c_str(), temp) > 0){
         return true;
     }
     return false;
 }
 //works , back to const?
 bool DSString::operator< (const DSString& temp){
-    if (strcmp(this->c_str(), temp.c_str()) < 0){
+    if (strcasecmp(this->c_str(), temp.c_str()) < 0){
         return true;
     }
     return false;
 }
 //works
 bool DSString::operator< (const char* temp){
-    if (strcmp(this->c_str(), temp) < 0){
+    if (strcasecmp(this->c_str(), temp) < 0){
         return true;
     }
     return false;
@@ -155,15 +155,25 @@ ostream& operator<< (ostream& output, const DSString& temp){
 ifstream& DSString::getline(ifstream& inSS, DSString& word){
     char* temp;
     inSS.get(temp, 500);
-    word += DSString(temp); //will this work?
+    word = DSString(temp); //will this work?
     return inSS;
 }
 
 //string stream getline
-istream& DSString::getline(istream& inSS, DSString& word, const char& delim){
-    char* temp;
+istream& DSString::getline(istream& inSS, DSString& word,const char& delim){
+    /*char* temp;
     inSS.get(temp, 500, delim);
-    word += DSString(temp); //will this work?
+    word = DSString(temp); //will this work?
+    return inSS;*/
+    char *c=new char[500];
+    inSS.get(c,500);
+    int i=0;
+    while(c[i]!=delim)
+    {
+        inSS.get(c,500);
+        word+=c;
+    }
+    delete[]c;
     return inSS;
 }
 
@@ -197,5 +207,21 @@ DSString& DSString::erase (const int location){
     DSString j = DSString(temp) + DSString(temp2);
     *this = j;
     return *this;
+}
 
+bool DSString::isAllSpecialCharacters(const char* temp){
+    for(int i =0; i < strlen(temp); i++){
+        if(!isalpha(temp[i])){
+            return false;
+        }
+    }
+    return true;
+}
+bool DSString::isAllSpecialCharacters(DSString& temp){
+    for(int i = 0; i < temp.getLength(); i++){
+        if(!isalpha(temp[i])){
+            return false;
+        }
+    }
+    return true;
 }

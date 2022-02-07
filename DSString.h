@@ -119,10 +119,12 @@ public:
     friend ostream& operator<< (ostream&, const DSString&);
 
     ifstream& getline(ifstream&, DSString&);
-    istream& getline(istream&, DSString&, const char&);
+    istream& getline(istream&, DSString&,const char&);
     friend istream& operator>>(istream& is,DSString& obj);
     size_t find_first_of (const DSString& s, size_t pos = 0) const;
     DSString& erase (const int);
+    bool isAllSpecialCharacters(const char*);
+    bool isAllSpecialCharacters(DSString&);
 
     //You are free to add more functionality to the class.  For example,
     //you may want to add a find(...) function that will search for a

@@ -16,19 +16,18 @@ int main(int argc, char* const argv[]) {
     //}
     //else {
 
-        //FileManager x;
-        //TrainingData y;
-       // y.retrieveTS(x.readFile("data/train_dataset_20k.csv"));
-        //y.displayTS();
+        FileManager x;
+        TrainingData y;
+        y.retrieveTS(x.readFile("data/train_dataset_20k.csv"));
+        y.calculateWF();
+        y.displayWF();
+
         /*DSString p("test");
         wstring word(L"documentation");
         stemming::english_stem<DSString> StemEnglish;
         wcout << L"(English) Original text:\t" << p.c_str() << endl;
         StemEnglish(p);
-        wcout << L"(English) Stemmed text:\t" << p.c_str() << endl; */
-        DSString x("potato");
-        x.erase(2);
-        cout << x << endl;
+        wcout << L"(English) Stemmed text:\t" << p.c_str() << endl;*/
 
         //ifstream trainingFile;
 
