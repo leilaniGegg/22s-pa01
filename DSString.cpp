@@ -219,7 +219,7 @@ bool DSString::isAllSpecialCharacters(){
     return true;
 }
 
-vector<DSString> DSString::parseTweet(const char* delim){
+vector<DSString> DSString::parseTweet(const char* delim)const{
     vector<DSString> wordsFromTweet;
     char* tempWord = strtok(this->c_str(), delim);
     while(tempWord != NULL){

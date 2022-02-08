@@ -19,11 +19,12 @@ public:
     ~Word();
     int getPCount();
     int getNCount();
-    float getRank();
+    float getRank()const;
     DSString& getActualWord(); //not sure if I need this
     void incrementPositive();
     void incrementNegative();
     void calculateRank();
+    friend ostream& operator<< (ostream&, const Word&);
 
 };
 

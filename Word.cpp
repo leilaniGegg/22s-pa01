@@ -14,13 +14,18 @@ Word::Word(const DSString& temp){
 Word::~Word(){
 }
 
+ostream& operator<< (ostream& output, const Word& word){
+    output << word.actualWord;
+    return output;
+}
+
 int Word::getPCount(){
     return positiveCount;
 }
 int Word::getNCount(){
     return negativeCount;
 }
-float Word::getRank(){
+float Word::getRank()const{
     return rank;
 }
 
@@ -36,5 +41,5 @@ void Word::incrementNegative(){
 }
 
 void Word::calculateRank(){
-    rank = positiveCount - negativeCount;//maybe add dividing later
+    rank = (positiveCount - negativeCount)/(positiveCount+negativeCount);//maybe add dividing later
 }

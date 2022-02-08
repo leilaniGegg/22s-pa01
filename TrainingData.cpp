@@ -4,8 +4,6 @@
 
 #include "TrainingData.h"
 
-
-//no clue if this works
 //stores tweet and sentiment in a map
 void TrainingData::retrieveTS(const vector<vector<DSString>>& trainingData){
      int size = trainingData.at(0).size(); //how many columns

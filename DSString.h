@@ -127,7 +127,7 @@ public:
     DSString& erase (const int);
     bool isAllSpecialCharacters();
     bool isAlpha(char);
-    vector<DSString> parseTweet(const char*);
+    vector<DSString> parseTweet(const char*)const;
     DSString& removeAllSpecialCharacters();
 
 
