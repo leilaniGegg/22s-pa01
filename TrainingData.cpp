@@ -31,42 +31,52 @@ void TrainingData::calculateWF(){
     map<DSString, int>::iterator itr;
     for(itr = tweetSentiment.begin(); itr != tweetSentiment.end(); itr++){
         int tempSValue = itr-> second;  //the corresponding sentiment value from the tweetsentiment map
-        char* tempTweet = itr->first.c_str(); //the tweet itself from tweetsentiment map
-        char* tempWord = strtok(tempTweet, " "); //each word from tweet from tweetsentiment map
+        DSString tempTweet = itr->first; //the tweet itself from tweetsentiment map
+        vector<DSString> words = tempTweet.parseTweet(" ");//each word from tweet from tweetsentiment map
         //check if the word starts with @ (a username) or only contains special characters
-        if(tempWord[0] == '@' || isAllSpecialCharacters(tempWord)){ //add second condition
-            continue;
-        }
-        while(tempWord != NULL){
-            if(wordFrequency.count(tempWord)){
+        for (int i = 0; i < words.size(); i++) {
+            DSString currWord(words.at(i));
+            if (currWord[0] == '@' ||currWord.isAllSpecialCharacters()) { //add second condition
+                continue;
+            }
+            if (wordFrequency.count(currWord)) {
                 //if the word is already in the list
-                auto itr2 = wordFrequency.find(tempWord); //store location where the word already exists
+                auto itr2 = wordFrequency.find(currWord); //store location where the word already exists
                 //increase the count for the word for either positive or negative count
-                if(tempSValue == 0){
+                if (tempSValue == 0) {
                     itr2->second.incrementNegative();
-                }
-                else if(tempSValue == 4){
+                } else{
                     itr2->second.incrementPositive();
                 }
-            }
-            else{
-                wordFrequency.insert(pair<DSString, Word>(tempWord, Word(tempWord))); //add new pair to wordfrequency
-                if(tempSValue == 0){
-                    wordFrequency.rbegin()->second.incrementNegative();
                 }
-                else if(tempSValue == 4){
-                    wordFrequency.rbegin()->second.incrementPositive();
-                }
+            else {
+                wordFrequency.insert(pair<DSString, Word>(currWord, Word(words.at(i)))); //add new pair to wordfrequency
+               if (tempSValue == 0) {
+                   auto itr3 = wordFrequency.find(currWord);
+                   itr3->second.incrementNegative();
+               } else{
+                   auto itr4 = wordFrequency.find(currWord);
+                   itr4->second.incrementPositive();
+               }
             }
-            tempWord = strtok(NULL, " ");
         }
+    }
+    //now for each word in the word frequency map, calculate its rank based on its positive and negative count
+    calculateRanks();
+}
+
+void TrainingData::calculateRanks() {
+    map<DSString, Word>::iterator itr;
+    for(itr = wordFrequency.begin(); itr != wordFrequency.end(); itr++){
+        itr->second.calculateRank();
     }
 }
 
 void TrainingData::displayWF(){
     map<DSString, Word>::iterator itr;
     for(itr = wordFrequency.begin(); itr != wordFrequency.end(); itr++){
-        cout << itr->first << " -- P:" << itr->second.getPCount() << "  N:" << itr->second.getNCount() << endl;
+        cout << itr->first << " -- P:" << itr->second.getPCount() << "  N:" << itr->second.getNCount()
+        << "  R: " << itr->second.getRank() << endl;
     }
 }
 //might need this function?
@@ -74,11 +84,3 @@ map<DSString, Word, DSStringCompare>& TrainingData::getWF(){
     return wordFrequency;
 }
 
-bool TrainingData::isAllSpecialCharacters(const char* temp){
-    for(int i =0; i < strlen(temp); i++){
-        if(isalpha(temp[i])){
-            return false;
-        }
-    }
-    return true;
-}

@@ -34,3 +34,7 @@ void Word::incrementPositive(){
 void Word::incrementNegative(){
     negativeCount++;
 }
+
+void Word::calculateRank(){
+    rank = positiveCount - negativeCount;//maybe add dividing later
+}

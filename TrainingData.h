@@ -24,7 +24,7 @@ public:
     void calculateWF(); //not sure if this is right format
     void displayWF();
     map<DSString, Word, DSStringCompare>& getWF();
-    bool isAllSpecialCharacters(const char*);
+    void calculateRanks();
 
 
 

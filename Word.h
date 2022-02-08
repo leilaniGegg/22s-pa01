@@ -23,6 +23,7 @@ public:
     DSString& getActualWord(); //not sure if I need this
     void incrementPositive();
     void incrementNegative();
+    void calculateRank();
 
 };
 
