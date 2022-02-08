@@ -3,7 +3,6 @@
 #include "DSString.h"
 #include "FileManager.h"
 #include "TrainingData.h"
-#include "Tweet.h"
 #include <vector>
 #include <iomanip>
 #define CATCH_CONFIG_RUNNER
