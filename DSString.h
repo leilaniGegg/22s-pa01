@@ -7,6 +7,8 @@
 #include <fstream>
 #include <sstream>
 #include <cstring>
+#include <algorithm>
+#include <vector>
 #include <map>
 #include <iterator>
 
@@ -78,9 +80,9 @@ public:
 
     bool operator== (const char*);
     bool operator== (const DSString&);
-    bool operator> (const DSString&);
+    bool operator> (const DSString&) const;
     bool operator> (const char*);
-    bool operator<(const DSString&);
+    bool operator<(const DSString&)const;
     bool operator< (const char*);
 
     /**
@@ -123,8 +125,11 @@ public:
     friend istream& operator>>(istream& is,DSString& obj);
     size_t find_first_of (const DSString& s, size_t pos = 0) const;
     DSString& erase (const int);
-    bool isAllSpecialCharacters(const char*);
-    bool isAllSpecialCharacters(DSString&);
+    bool isAllSpecialCharacters();
+    bool isAlpha(char);
+    vector<DSString> parseTweet(const char*);
+    DSString& removeAllSpecialCharacters();
+
 
     //You are free to add more functionality to the class.  For example,
     //you may want to add a find(...) function that will search for a

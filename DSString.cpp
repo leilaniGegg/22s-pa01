@@ -76,7 +76,7 @@ bool DSString::operator== (const DSString& temp){
     return false;
 }
 //works
-bool DSString::operator> (const DSString& temp){
+bool DSString::operator> (const DSString& temp) const{
     if (strcasecmp(this->c_str(), temp.c_str()) > 0){
         return true;
     }
@@ -90,7 +90,7 @@ bool DSString::operator> (const char* temp){
     return false;
 }
 //works , back to const?
-bool DSString::operator< (const DSString& temp){
+bool DSString::operator< (const DSString& temp) const{
     if (strcasecmp(this->c_str(), temp.c_str()) < 0){
         return true;
     }
@@ -146,6 +146,7 @@ DSString DSString::substringIndex(int start, int end){
 char * DSString::c_str() const {
     return word;
 }
+
 //works now!
 ostream& operator<< (ostream& output, const DSString& temp){
     output << temp.word;
@@ -209,19 +210,36 @@ DSString& DSString::erase (const int location){
     return *this;
 }
 
-bool DSString::isAllSpecialCharacters(const char* temp){
-    for(int i =0; i < strlen(temp); i++){
-        if(!isalpha(temp[i])){
+bool DSString::isAllSpecialCharacters(){
+    for(int i = 0; i < this->getLength(); i++){
+        if(!isalpha(this->c_str()[i])){
             return false;
         }
     }
     return true;
 }
-bool DSString::isAllSpecialCharacters(DSString& temp){
-    for(int i = 0; i < temp.getLength(); i++){
-        if(!isalpha(temp[i])){
-            return false;
-        }
+
+vector<DSString> DSString::parseTweet(const char* delim){
+    vector<DSString> wordsFromTweet;
+    char* tempWord = strtok(this->c_str(), delim);
+    while(tempWord != NULL){
+        DSString newWord(tempWord);
+        wordsFromTweet.push_back(newWord);//will this work?
+        tempWord = strtok(NULL, " ");
     }
-    return true;
+    return wordsFromTweet;
+}
+
+bool DSString::isAlpha(char x){
+    if(isalpha(x)){
+        return true;
+    }
+    return false;
+}
+
+DSString& DSString::removeAllSpecialCharacters(){
+    DSString temp;
+    char* start = this->c_str();
+    char* end = this->c_str() + (strlen(this->c_str()) + 1);
+    //end = remove_if(start, end, isAlpha());
 }
