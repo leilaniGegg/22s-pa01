@@ -13,6 +13,7 @@ private:
     vector<Word> words;
     int ID; //the ID given from the file
     float predictedSentiment;
+    bool predictionStatus;
 
 public:
     Tweet(const DSString&);

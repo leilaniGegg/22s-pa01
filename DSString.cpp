@@ -190,25 +190,7 @@ istream& operator>>(istream& inSS, DSString& word){
     return word.find_first_of (word.c_str(), 0);
 }*/
 //????
-DSString& DSString::erase (const int location){
-    /*DSString temp = this->substringIndex(0, location);
-    DSString temp2 = this->substringIndex(location + 1, this->getLength() - 1);
-    DSString temp3 = temp+temp2;
-    strcpy(this->word, temp3.c_str());
-    return *this;*/
-    char temp[location];
-    for(int i = 0; i < location; i++){
-        temp[i] = this->word[i];
-    }
-    char temp2[this->getLength()-location];
 
-    for(int i = 0; i < this->getLength()-location; i++){
-        temp2[i] = this->word[location + i + 1 ];
-    }
-    DSString j = DSString(temp) + DSString(temp2);
-    *this = j;
-    return *this;
-}
 
 bool DSString::isAllSpecialCharacters(){
     for(int i = 0; i < this->getLength(); i++){

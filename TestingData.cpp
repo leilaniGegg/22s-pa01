@@ -20,7 +20,7 @@ void TestingData::displayTI(){
     }
 }
 
-//parameter is the wordFrequency map from training
+//calculate the sentiment of each tweet. parameter is the wordFrequency map from training
 void TestingData::calculateTS(const map<DSString, Word, DSStringCompare>& wordFrequency){
     //go through each word of the tweet, find its corresponding word in the
     // tweetsAndIds map, and calculate its sentiment by adding up the ranks
@@ -50,6 +50,13 @@ void TestingData::displayPredictedTS(){
         else{
             sValue = 1;
         }
-        cout << sValue << "--" << itr->second << endl;
+        cout << sValue << endl;
+    }
+}
+
+void TestingData::compareSentiments(const vector<vector<DSString>>& input){
+    map<long, Tweet>::iterator itr;
+    for(itr = tweetsAndIDs.begin(); itr != tweetsAndIDs.end(); itr++){
+
     }
 }

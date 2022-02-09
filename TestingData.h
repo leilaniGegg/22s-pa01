@@ -17,6 +17,9 @@ public:
     void displayTI();
     void calculateTS(const map<DSString, Word, DSStringCompare>&);
     void displayPredictedTS();
+    void compareSentiments(const vector<vector<DSString>>&);
+
+
 
 };
 #endif //PA01_SENTIMENT_TESTINGDATA_H
