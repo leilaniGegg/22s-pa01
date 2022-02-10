@@ -41,5 +41,5 @@ void Word::incrementNegative(){
 }
 
 void Word::calculateRank(){
-    rank = (positiveCount - negativeCount)/(positiveCount+negativeCount);//maybe add dividing later
+    rank = (float)(positiveCount - negativeCount)/(positiveCount+negativeCount);
 }

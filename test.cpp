@@ -24,6 +24,6 @@ TEST_CASE("DSString class", "[string]"){
         REQUIRE((list[3] == ""));
     }
     SECTION("Adding Operators"){
-        REQUIRE
+
     }
 }

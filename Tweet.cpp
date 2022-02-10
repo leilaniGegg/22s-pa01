@@ -20,16 +20,13 @@ vector<Word> Tweet::getWords()const{
     return words;
 }
 
-void Tweet::calculatePS(){
-    //later
+
+float Tweet::getTR()const{
+    return tweetRank;
 }
 
-float Tweet::getPS()const{
-    return predictedSentiment;
-}
-
-void Tweet::addToSentiment(float rank){
-    predictedSentiment += rank;
+void Tweet::addtoRank(float rank){
+    tweetRank += rank;
 }
 
 ostream& operator<< (ostream& output, const Tweet& tweet){
@@ -37,4 +34,17 @@ ostream& operator<< (ostream& output, const Tweet& tweet){
         output << tweet.words.at(i) << " ";
     }
     return output;
+}
+
+void Tweet::determinePS(){
+    if(tweetRank >= 0){
+        predictedSentiment = 4;
+    }
+    else{
+        predictedSentiment = 0;
+    }
+}
+
+int Tweet::getPS() {
+    return predictedSentiment;
 }

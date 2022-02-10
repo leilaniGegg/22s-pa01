@@ -185,12 +185,6 @@ istream& operator>>(istream& inSS, DSString& word){
     word = temp;
     return inSS;
 }
-//not sure about this
-/*size_t find_first_of (const DSString& word, size_t pos = 0){
-    return word.find_first_of (word.c_str(), 0);
-}*/
-//????
-
 
 bool DSString::isAllSpecialCharacters(){
     for(int i = 0; i < this->getLength(); i++){
@@ -212,12 +206,20 @@ vector<DSString> DSString::parseTweet(const char* delim)const{
     return wordsFromTweet;
 }
 
+DSString& DSString::toLower(){
+    for(int i = 0; i < strlen(word); i++){
+        word[i] = tolower(word[i]);
+    }
+    return *this;
+}
+
 bool DSString::isAlpha(char x){
     if(isalpha(x)){
         return true;
     }
     return false;
 }
+
 
 DSString& DSString::removeAllSpecialCharacters(){
     DSString temp;

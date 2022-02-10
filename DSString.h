@@ -129,6 +129,7 @@ public:
     bool isAlpha(char);
     vector<DSString> parseTweet(const char*)const;
     DSString& removeAllSpecialCharacters();
+    DSString& toLower();
 
 
     //You are free to add more functionality to the class.  For example,

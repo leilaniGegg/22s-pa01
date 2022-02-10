@@ -11,7 +11,7 @@ void TrainingData::retrieveTS(const vector<vector<DSString>>& trainingData){
      for(int r = 0; r < trainingData.size(); r++){
              int sentiment = atoi(trainingData.at(r).at(0).c_str());
              tweet = (trainingData.at(r).at(size-1));
-             tweetSentiment.insert(pair<DSString, int>(tweet, sentiment));
+             tweetSentiment.insert(pair<DSString, int>(tweet.toLower(), sentiment));
      }
 }
 

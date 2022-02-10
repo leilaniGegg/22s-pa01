@@ -12,17 +12,18 @@ class Tweet{
 private:
     vector<Word> words;
     int ID; //the ID given from the file
-    float predictedSentiment;
-    bool predictionStatus;
+    int predictedSentiment; // 0 or 4
+    float tweetRank;  //adding up the ranks of every word in the tweet
 
 public:
     Tweet(const DSString&);
     int getID()const;
     vector<Word> getWords()const;
-    void calculatePS();
     friend ostream& operator<< (ostream&, const Tweet&);
-    void addToSentiment(float);
-    float getPS()const;
+    void addtoRank(float); // add to the tweet rank
+    float getTR()const;
+    void determinePS(); //prediced sentiment
+    int getPS();
 
 };
 #endif //PA01_SENTIMENT_TWEET_H

@@ -20,16 +20,12 @@ int main(int argc, char* const argv[]) {
         training.retrieveTS(IO.readFile(argv[1]));
         training.calculateWF();
         TestingData testing;
-        /*vector<vector<DSString>> x = IO.readFile(argv[2]);
-        for(int i = 0; i < x.size(); i++){
-            for(int j = 0; j < x.at(0).size(); j++){
-                cout << x.at(i).at(j) << "--";
-            }
-            cout << endl;
-        } */
         testing.retrieveTI(IO.readFile(argv[2]));
         testing.calculateTS(training.getWF());
-        testing.displayPredictedTS();
+        //testing.displayPredictedTS();
+        testing.compareSentiments(IO.readFile(argv[3]));
+        testing.calculateAccuracy();
+        testing.displayAccuracy();
     }
 
     return 0;

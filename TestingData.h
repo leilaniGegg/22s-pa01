@@ -7,10 +7,13 @@
 
 #include "Tweet.h"
 #include "Word.h"
+#include <iomanip>
 
 class TestingData{
 private:
     map<long, Tweet> tweetsAndIDs;
+    vector<Tweet> incorrectTweets;
+    float accuracy = 0;
 
 public:
     void retrieveTI(const vector<vector<DSString>>&); //get the tweet and ids from file input
@@ -18,6 +21,11 @@ public:
     void calculateTS(const map<DSString, Word, DSStringCompare>&);
     void displayPredictedTS();
     void compareSentiments(const vector<vector<DSString>>&);
+    void calculateAccuracy();
+    float getAccuracy()const;
+    vector<Tweet>& getIT(); //show incorrect tweets
+
+
 
 
 
