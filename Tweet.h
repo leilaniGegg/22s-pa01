@@ -24,6 +24,7 @@ public:
     float getTR()const;
     void determinePS(); //prediced sentiment
     int getPS();
+    void toLower();
 
 };
 #endif //PA01_SENTIMENT_TWEET_H

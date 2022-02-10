@@ -109,7 +109,6 @@ char& DSString::operator[] (const int index){
         throw std::out_of_range ("Index out of range!");
     }
     return word[index];
-
 }
 
 //
@@ -130,7 +129,11 @@ DSString DSString::substring(int start, int numChars){
     return DSString(tempWord);
 }
 
+//returns substring from start to end-1
 DSString DSString::substringIndex(int start, int end){
+    if(start == end){
+        return DSString("");
+    }
     char tempWord[end - start];
     int i = start;
     int x = 0;
@@ -188,7 +191,7 @@ istream& operator>>(istream& inSS, DSString& word){
 
 bool DSString::isAllSpecialCharacters(){
     for(int i = 0; i < this->getLength(); i++){
-        if(!isalpha(this->c_str()[i])){
+        if(isalpha(this->c_str()[i])){
             return false;
         }
     }
@@ -201,7 +204,7 @@ vector<DSString> DSString::parseTweet(const char* delim)const{
     while(tempWord != NULL){
         DSString newWord(tempWord);
         wordsFromTweet.push_back(newWord);//will this work?
-        tempWord = strtok(NULL, " ");
+        tempWord = strtok(NULL, delim);
     }
     return wordsFromTweet;
 }
@@ -214,16 +217,20 @@ DSString& DSString::toLower(){
 }
 
 bool DSString::isAlpha(char x){
-    if(isalpha(x)){
-        return true;
-    }
-    return false;
+    return isalpha(x);
 }
 
-
+//not sure
 DSString& DSString::removeAllSpecialCharacters(){
-    DSString temp;
-    char* start = this->c_str();
-    char* end = this->c_str() + (strlen(this->c_str()) + 1);
-    //end = remove_if(start, end, isAlpha());
+    char temp [strlen(word)];
+    int tempIndex = 0;
+    for(int i = 0; i < strlen(word); i++){
+        if(word[i] !=  '!' && word[i] != ',' && word[i] != '.' && word[i] != '-' && word[i] != '@' && word[i] != '"' && word[i] != '\''){
+            temp[tempIndex] = word[i];
+            tempIndex++;
+        }
+    }
+    word = new char[strlen(temp) + 1];
+    strcpy(this->word, temp);
+    return *this;
 }

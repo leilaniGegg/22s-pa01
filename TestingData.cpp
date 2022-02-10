@@ -9,6 +9,7 @@ void TestingData::retrieveTI(const vector<vector<DSString>>& testingData){
     for(int r = 0; r < testingData.size(); r++){
         long ID = atol(testingData.at(r).at(0).c_str());
         Tweet tweet((testingData.at(r).at(size-1))); //correct syntax?
+        tweet.toLower();
         tweetsAndIDs.insert(pair<long, Tweet>(ID, tweet));
     }
 }
@@ -66,8 +67,8 @@ void TestingData::compareSentiments(const vector<vector<DSString>>& input){
 void TestingData::calculateAccuracy(){
     //correct tweets divided by total tweets
     accuracy = (float)(tweetsAndIDs.size() - incorrectTweets.size())/(tweetsAndIDs.size());
-    cout << "total size" << tweetsAndIDs.size() << endl;
-    cout << "correct tweets" << tweetsAndIDs.size() - incorrectTweets.size() << endl;
+    cout << "total size: " << tweetsAndIDs.size() << endl;
+    cout << "correct tweets: " << tweetsAndIDs.size() - incorrectTweets.size() << endl;
 }
 
 float TestingData::getAccuracy()const{

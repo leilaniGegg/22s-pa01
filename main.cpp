@@ -4,7 +4,6 @@
 #include "FileManager.h"
 #include "TrainingData.h"
 #include "TestingData.h"
-#include <vector>
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"
 
@@ -19,12 +18,15 @@ int main(int argc, char* const argv[]) {
         TrainingData training;
         training.retrieveTS(IO.readFile(argv[1]));
         training.calculateWF();
+        //training.displayWF();
         TestingData testing;
         testing.retrieveTI(IO.readFile(argv[2]));
+        testing.displayTI();
         testing.calculateTS(training.getWF());
         //testing.displayPredictedTS();
         testing.compareSentiments(IO.readFile(argv[3]));
         testing.calculateAccuracy();
+        cout << testing.getAccuracy() << endl;
     }
 
     return 0;

@@ -6,7 +6,7 @@
 
 //this shouldd work??
 Tweet::Tweet(const DSString& tweet){
-    vector<DSString> wordsFromTweet = tweet.parseTweet(" ");
+    vector<DSString> wordsFromTweet = tweet.parseTweet(" ,.()!$#?@&*-\"");
     for(int i = 0; i < wordsFromTweet.size(); i++){
         words.push_back(Word(wordsFromTweet.at(i)));
     }
@@ -47,4 +47,10 @@ void Tweet::determinePS(){
 
 int Tweet::getPS() {
     return predictedSentiment;
+}
+
+void Tweet::toLower(){
+    for(int i = 0; i < words.size(); i++){
+        words.at(i).getActualWord().toLower();
+    }
 }
