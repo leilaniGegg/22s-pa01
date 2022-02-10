@@ -25,7 +25,6 @@ int main(int argc, char* const argv[]) {
         //testing.displayPredictedTS();
         testing.compareSentiments(IO.readFile(argv[3]));
         testing.calculateAccuracy();
-        testing.displayAccuracy();
     }
 
     return 0;
