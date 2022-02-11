@@ -38,5 +38,4 @@ void FileManager::writeToFile(const DSString& filename, TestingData& temp){
     for(int i = 0; i < wrong->size(); i++){
         file << wrong->at(i).getID() << endl;
     }
-
 }

@@ -120,14 +120,9 @@ public:
      **/
     friend ostream& operator<< (ostream&, const DSString&);
 
-    //ifstream& getline(ifstream&, DSString&); delete these later
-    //istream& getline(istream&, DSString&,const char&);
     friend istream& operator>>(istream& is,DSString& obj);
     size_t find_first_of (const DSString& s, size_t pos = 0) const;
-    //bool isAllSpecialCharacters();
-    //bool isAlpha(char);
     vector<DSString> parseTweet(const char*)const;
-    //DSString& removeAllSpecialCharacters();
     DSString& toLower();
 
 

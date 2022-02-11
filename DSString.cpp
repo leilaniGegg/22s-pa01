@@ -27,20 +27,20 @@ DSString::DSString(const DSString& input){
 }
 DSString::~DSString(){
     if(word != nullptr){
-        delete word;
+        delete word; //is this bracket or no?
     }
 }
 
 //
 //  Overloaded Operators
 //
-//works!
+
 DSString& DSString::operator= (const char* temp){
     word = new char[strlen(temp) + 1];
     strcpy(word, temp);
     return *this;
 }
-//works!
+
 DSString& DSString::operator= (const DSString& temp){
     if(this == &temp){
         return *this;
@@ -49,65 +49,61 @@ DSString& DSString::operator= (const DSString& temp){
     strcpy(this->word, temp.word);
     return *this;
 }
-//working !!!!!!!!!!!!!!!wait double check
+
 DSString DSString::operator+ (const DSString& temp){
     DSString newWord(*this);
     strcat(newWord.word, temp.word);
     return newWord;
 }
-//working
+
 DSString& DSString::operator+= (const DSString& temp){
     strcat(this->word, temp.word);
     return *this;
 }
 
-//works!
 bool DSString::operator== (const char* temp){
     if(strcmp(word, temp) == 0){
         return true;
     }
     return false;
 }
-//works
+
 bool DSString::operator== (const DSString& temp){
     if (strcmp(this->word, temp.word) == 0){
         return true;
     }
     return false;
 }
-//works
+
 bool DSString::operator> (const DSString& temp) const{
     if (strcasecmp(this->c_str(), temp.c_str()) > 0){
         return true;
     }
     return false;
 }
-//works
+
 bool DSString::operator> (const char* temp){
     if (strcasecmp(this->c_str(), temp) > 0){
         return true;
     }
     return false;
 }
-//works , back to const?
+
 bool DSString::operator< (const DSString& temp) const{
     if (strcasecmp(this->c_str(), temp.c_str()) < 0){
         return true;
     }
     return false;
 }
-//works
+
 bool DSString::operator< (const char* temp){
     if (strcasecmp(this->c_str(), temp) < 0){
         return true;
     }
     return false;
 }
-//code the throw better? but it still works!
+
 char& DSString::operator[] (const int index){
-    if (index >= this->getLength()){
-        throw std::out_of_range ("Index out of range!");
-    }
     return word[index];
 }
 
@@ -118,7 +114,7 @@ char& DSString::operator[] (const int index){
 int DSString::getLength(){
     return strlen(word);
 }
-//works!
+
 DSString DSString::substring(int start, int numChars){
     char tempWord[numChars + 1];
     int i = 0;
@@ -145,54 +141,21 @@ DSString DSString::substringIndex(int start, int end){
     return DSString(tempWord);
 }
 
-//works?
 char * DSString::c_str() const {
     return word;
 }
 
-//works now!
 ostream& operator<< (ostream& output, const DSString& temp){
     output << temp.word;
     return output;
 }
-//file getline
-/*ifstream& DSString::getline(ifstream& inSS, DSString& word){
-    char* temp;
-    inSS.get(temp, 500);
-    word = DSString(temp); //will this work?
-    return inSS;
-}
-
-//string stream getline
-istream& DSString::getline(istream& inSS, DSString& word,const char& delim){
-    char *c=new char[500];
-    inSS.get(c,500);
-    int i=0;
-    while(c[i]!=delim)
-    {
-        inSS.get(c,500);
-        word+=c;
-    }
-    delete[]c;
-    return inSS;
-}*/
 
 istream& operator>>(istream& inSS, DSString& word){
     char* temp;
-    //memset(&buff[0], 0, sizeof(buff));
     inSS >> temp;
     word = temp;
     return inSS;
 }
-
-/*bool DSString::isAllSpecialCharacters(){
-    for(int i = 0; i < this->getLength(); i++){
-        if(isalpha(this->c_str()[i])){
-            return false;
-        }
-    }
-    return true;
-}*/
 
 vector<DSString> DSString::parseTweet(const char* delim)const{
     vector<DSString> wordsFromTweet;
@@ -211,22 +174,3 @@ DSString& DSString::toLower(){
     }
     return *this;
 }
-
-/*bool DSString::isAlpha(char x){
-    return isalpha(x);
-}*/
-
-//not sure
-/*DSString& DSString::removeAllSpecialCharacters(){
-    char temp [strlen(word)];
-    int tempIndex = 0;
-    for(int i = 0; i < strlen(word); i++){
-        if(word[i] !=  '!' && word[i] != ',' && word[i] != '.' && word[i] != '-' && word[i] != '@' && word[i] != '"' && word[i] != '\''){
-            temp[tempIndex] = word[i];
-            tempIndex++;
-        }
-    }
-    word = new char[strlen(temp) + 1];
-    strcpy(this->word, temp);
-    return *this;
-}*/
