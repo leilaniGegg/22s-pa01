@@ -12,16 +12,16 @@ using namespace std;
 int main(int argc, char* const argv[]) {
     //if(argc == 1){
         return Catch::Session().run();
-   /* }
+    /*}
     else {
         FileManager IO;
         TrainingData training;
         training.retrieveTS(IO.readFile(argv[1]));
         training.calculateWF();
-        //training.displayWF();
+        training.displayWF();
         TestingData testing;
         testing.retrieveTI(IO.readFile(argv[2]));
-        testing.displayTI();
+        //testing.displayTI();
         testing.calculateTS(training.getWF());
         //testing.displayPredictedTS();
         testing.compareSentiments(IO.readFile(argv[3]));

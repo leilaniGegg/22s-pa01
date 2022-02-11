@@ -4,6 +4,8 @@
 
 #include "TestingData.h"
 
+//Some of these functions were only for testing purposes, i.e. the display functions
+
 void TestingData::retrieveTI(const vector<vector<DSString>>& testingData){
     int size = testingData.at(0).size();
     for(int r = 0; r < testingData.size(); r++){
@@ -41,6 +43,7 @@ void TestingData::calculateTS(const map<DSString, Word, DSStringCompare>& wordFr
     }
 }
 
+//show the predicted sentiment value for each tweet
 void TestingData::displayPredictedTS(){
     map<long, Tweet>::iterator itr;
     for(itr = tweetsAndIDs.begin(); itr != tweetsAndIDs.end(); itr++){

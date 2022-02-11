@@ -156,7 +156,7 @@ ostream& operator<< (ostream& output, const DSString& temp){
     return output;
 }
 //file getline
-ifstream& DSString::getline(ifstream& inSS, DSString& word){
+/*ifstream& DSString::getline(ifstream& inSS, DSString& word){
     char* temp;
     inSS.get(temp, 500);
     word = DSString(temp); //will this work?
@@ -165,10 +165,6 @@ ifstream& DSString::getline(ifstream& inSS, DSString& word){
 
 //string stream getline
 istream& DSString::getline(istream& inSS, DSString& word,const char& delim){
-    /*char* temp;
-    inSS.get(temp, 500, delim);
-    word = DSString(temp); //will this work?
-    return inSS;*/
     char *c=new char[500];
     inSS.get(c,500);
     int i=0;
@@ -179,7 +175,7 @@ istream& DSString::getline(istream& inSS, DSString& word,const char& delim){
     }
     delete[]c;
     return inSS;
-}
+}*/
 
 istream& operator>>(istream& inSS, DSString& word){
     char* temp;
@@ -189,14 +185,14 @@ istream& operator>>(istream& inSS, DSString& word){
     return inSS;
 }
 
-bool DSString::isAllSpecialCharacters(){
+/*bool DSString::isAllSpecialCharacters(){
     for(int i = 0; i < this->getLength(); i++){
         if(isalpha(this->c_str()[i])){
             return false;
         }
     }
     return true;
-}
+}*/
 
 vector<DSString> DSString::parseTweet(const char* delim)const{
     vector<DSString> wordsFromTweet;
@@ -216,12 +212,12 @@ DSString& DSString::toLower(){
     return *this;
 }
 
-bool DSString::isAlpha(char x){
+/*bool DSString::isAlpha(char x){
     return isalpha(x);
-}
+}*/
 
 //not sure
-DSString& DSString::removeAllSpecialCharacters(){
+/*DSString& DSString::removeAllSpecialCharacters(){
     char temp [strlen(word)];
     int tempIndex = 0;
     for(int i = 0; i < strlen(word); i++){
@@ -233,4 +229,4 @@ DSString& DSString::removeAllSpecialCharacters(){
     word = new char[strlen(temp) + 1];
     strcpy(this->word, temp);
     return *this;
-}
+}*/

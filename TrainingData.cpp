@@ -31,12 +31,8 @@ void TrainingData::calculateWF(){
         int tempSValue = itr-> second;  //the corresponding sentiment value from the tweetsentiment map
         DSString tempTweet = itr->first; //the tweet itself from tweetsentiment map
         vector<DSString> words = tempTweet.parseTweet(" ,.()!?$#@&*-\"");//each word from tweet from tweetsentiment map
-        //check if the word starts with @ (a username) or only contains special characters
         for (int i = 0; i < words.size(); i++) {
-            DSString currWord(words.at(i)); //idk if this should be here
-            if (currWord[0] == '@' || currWord.isAllSpecialCharacters()) { //add second condition
-                continue;
-            }
+            DSString currWord(words.at(i));
             //if the word is already in the list
             if (wordFrequency.count(currWord)) {
                 auto itr2 = wordFrequency.find(currWord); //store location where the word already exists

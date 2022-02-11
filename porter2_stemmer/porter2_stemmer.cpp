@@ -39,6 +39,7 @@ void Porter2Stemmer::stem(std::string& word)
     // special case short words or sentence tags
     if (word.size() <= 2 || word == "<s>" || word == "</s>")
         return;
+
     // max word length is 35 for English
     if (word.size() > 35)
         word = word.substr(0, 35);
@@ -79,10 +80,10 @@ void Porter2Stemmer::trim(std::string& word)
 
     std::transform(word.begin(), word.end(), word.begin(), ::tolower);
     auto it
-        = std::remove_if(word.begin(), word.end(), [](char ch)
-                         {
-                             return !((ch >= 'a' && ch <= 'z') || ch == '\'');
-                         });
+            = std::remove_if(word.begin(), word.end(), [](char ch)
+            {
+                return !((ch >= 'a' && ch <= 'z') || ch == '\'');
+            });
 
     word.erase(it, word.end());
 }
@@ -114,8 +115,8 @@ size_t Porter2Stemmer::internal::getStartR2(const std::string& word,
 }
 
 size_t
-    Porter2Stemmer::internal::firstNonVowelAfterVowel(const std::string& word,
-                                                      size_t start)
+Porter2Stemmer::internal::firstNonVowelAfterVowel(const std::string& word,
+                                                  size_t start)
 {
     for (size_t i = start; i != 0 && i < word.size(); ++i)
     {
@@ -145,22 +146,18 @@ void Porter2Stemmer::internal::step0(std::string& word)
 {
     // short circuit the longest suffix
     replaceIfExists(word, "'s'", "", 0) || replaceIfExists(word, "'s", "", 0)
-        || replaceIfExists(word, "'", "", 0);
+    || replaceIfExists(word, "'", "", 0);
 }
 
 /*
   Step 1a:
-
   sses
     replace by ss
-
   ied   ies
     replace by i if preceded by more than one letter, otherwise by ie
     (so ties -> tie, cries -> cri)
-
   us   ss
     do nothing
-
   s
     delete if the preceding word part contains a vowel not immediately before
   the
@@ -198,10 +195,8 @@ bool Porter2Stemmer::internal::step1A(std::string& word)
 
 /*
   Step 1b:
-
   eed   eedly
       replace by ee if in R1
-
   ed   edly   ing   ingly
       delete if the preceding word part contains a vowel, and after the
   deletion:
@@ -215,7 +210,7 @@ void Porter2Stemmer::internal::step1B(std::string& word, size_t startR1)
 
     if (exists) // look only in startR1 now
         replaceIfExists(word, "eedly", "ee", startR1)
-            || replaceIfExists(word, "eed", "ee", startR1);
+        || replaceIfExists(word, "eed", "ee", startR1);
     else
     {
         size_t size = word.size();
@@ -240,7 +235,6 @@ void Porter2Stemmer::internal::step1B(std::string& word, size_t startR1)
 
 /*
   Step 1c:
-
   Replace suffix y or Y by i if preceded by a non-vowel which is not the first
   letter of the word (so cry -> cri, by -> by, say -> say)
 */
@@ -254,9 +248,7 @@ void Porter2Stemmer::internal::step1C(std::string& word)
 
 /*
   Step 2:
-
   If found and in R1, perform the action indicated.
-
   tional:               replace by tion
   enci:                 replace by ence
   anci:                 replace by ance
@@ -277,28 +269,28 @@ void Porter2Stemmer::internal::step1C(std::string& word)
 void Porter2Stemmer::internal::step2(std::string& word, size_t startR1)
 {
     static const std::pair<meta::util::string_view, meta::util::string_view>
-        subs[] = {{"ational", "ate"},
-                  {"tional", "tion"},
-                  {"enci", "ence"},
-                  {"anci", "ance"},
-                  {"abli", "able"},
-                  {"entli", "ent"},
-                  {"izer", "ize"},
-                  {"ization", "ize"},
-                  {"ation", "ate"},
-                  {"ator", "ate"},
-                  {"alism", "al"},
-                  {"aliti", "al"},
-                  {"alli", "al"},
-                  {"fulness", "ful"},
-                  {"ousli", "ous"},
-                  {"ousness", "ous"},
-                  {"iveness", "ive"},
-                  {"iviti", "ive"},
-                  {"biliti", "ble"},
-                  {"bli", "ble"},
-                  {"fulli", "ful"},
-                  {"lessli", "less"}};
+            subs[] = {{"ational", "ate"},
+                      {"tional", "tion"},
+                      {"enci", "ence"},
+                      {"anci", "ance"},
+                      {"abli", "able"},
+                      {"entli", "ent"},
+                      {"izer", "ize"},
+                      {"ization", "ize"},
+                      {"ation", "ate"},
+                      {"ator", "ate"},
+                      {"alism", "al"},
+                      {"aliti", "al"},
+                      {"alli", "al"},
+                      {"fulness", "ful"},
+                      {"ousli", "ous"},
+                      {"ousness", "ous"},
+                      {"iveness", "ive"},
+                      {"iviti", "ive"},
+                      {"biliti", "ble"},
+                      {"bli", "ble"},
+                      {"fulli", "ful"},
+                      {"lessli", "less"}};
 
     for (auto& sub : subs)
         if (replaceIfExists(word, sub.first, sub.second, startR1))
@@ -323,9 +315,7 @@ void Porter2Stemmer::internal::step2(std::string& word, size_t startR1)
 
 /*
   Step 3:
-
   If found and in R1, perform the action indicated.
-
   ational:            replace by ate
   tional:             replace by tion
   alize:              replace by al
@@ -337,14 +327,14 @@ void Porter2Stemmer::internal::step3(std::string& word, size_t startR1,
                                      size_t startR2)
 {
     static const std::pair<meta::util::string_view, meta::util::string_view>
-        subs[] = {{"ational", "ate"},
-                  {"tional", "tion"},
-                  {"alize", "al"},
-                  {"icate", "ic"},
-                  {"iciti", "ic"},
-                  {"ical", "ic"},
-                  {"ful", ""},
-                  {"ness", ""}};
+            subs[] = {{"ational", "ate"},
+                      {"tional", "tion"},
+                      {"alize", "al"},
+                      {"icate", "ic"},
+                      {"iciti", "ic"},
+                      {"ical", "ic"},
+                      {"ful", ""},
+                      {"ness", ""}};
 
     for (auto& sub : subs)
         if (replaceIfExists(word, sub.first, sub.second, startR1))
@@ -355,9 +345,7 @@ void Porter2Stemmer::internal::step3(std::string& word, size_t startR1,
 
 /*
   Step 4:
-
   If found and in R2, perform the action indicated.
-
   al ance ence er ic able ible ant ement ment ent ism ate
     iti ous ive ize
                               delete
@@ -367,22 +355,22 @@ void Porter2Stemmer::internal::step3(std::string& word, size_t startR1,
 void Porter2Stemmer::internal::step4(std::string& word, size_t startR2)
 {
     static const std::pair<meta::util::string_view, meta::util::string_view>
-        subs[] = {{"al", ""},
-                  {"ance", ""},
-                  {"ence", ""},
-                  {"er", ""},
-                  {"ic", ""},
-                  {"able", ""},
-                  {"ible", ""},
-                  {"ant", ""},
-                  {"ement", ""},
-                  {"ment", ""},
-                  {"ism", ""},
-                  {"ate", ""},
-                  {"iti", ""},
-                  {"ous", ""},
-                  {"ive", ""},
-                  {"ize", ""}};
+            subs[] = {{"al", ""},
+                      {"ance", ""},
+                      {"ence", ""},
+                      {"er", ""},
+                      {"ic", ""},
+                      {"able", ""},
+                      {"ible", ""},
+                      {"ant", ""},
+                      {"ement", ""},
+                      {"ment", ""},
+                      {"ism", ""},
+                      {"ate", ""},
+                      {"iti", ""},
+                      {"ous", ""},
+                      {"ive", ""},
+                      {"ize", ""}};
 
     for (auto& sub : subs)
         if (replaceIfExists(word, sub.first, sub.second, startR2))
@@ -395,12 +383,11 @@ void Porter2Stemmer::internal::step4(std::string& word, size_t startR2)
 
     // short circuit
     replaceIfExists(word, "sion", "s", startR2 - 1)
-        || replaceIfExists(word, "tion", "t", startR2 - 1);
+    || replaceIfExists(word, "tion", "t", startR2 - 1);
 }
 
 /*
   Step 5:
-
   e     delete if in R2, or in R1 and not preceded by a short syllable
   l     delete if in R2 and preceded by l
 */
@@ -425,7 +412,6 @@ void Porter2Stemmer::internal::step5(std::string& word, size_t startR1,
 /*
   Determines whether a word ends in a short syllable.
   Define a short syllable in a word as either
-
   (a) a vowel followed by a non-vowel other than w, x or Y and preceded by a
       non-vowel
   (b) a vowel at the beginning of the word followed by a non-vowel.
@@ -447,18 +433,18 @@ bool Porter2Stemmer::internal::isShort(const std::string& word)
 bool Porter2Stemmer::internal::special(std::string& word)
 {
     static const std::unordered_map<meta::util::string_view,
-                                    meta::util::string_view> exceptions
-        = {{"skis", "ski"},
-           {"skies", "sky"},
-           {"dying", "die"},
-           {"lying", "lie"},
-           {"tying", "tie"},
-           {"idly", "idl"},
-           {"gently", "gentl"},
-           {"ugly", "ugli"},
-           {"early", "earli"},
-           {"only", "onli"},
-           {"singly", "singl"}};
+            meta::util::string_view> exceptions
+            = {{"skis", "ski"},
+               {"skies", "sky"},
+               {"dying", "die"},
+               {"lying", "lie"},
+               {"tying", "tie"},
+               {"idly", "idl"},
+               {"gently", "gentl"},
+               {"ugly", "ugli"},
+               {"early", "earli"},
+               {"only", "onli"},
+               {"singly", "singl"}};
 
     // special cases
     auto ex = exceptions.find(word);
@@ -511,8 +497,8 @@ bool Porter2Stemmer::internal::endsInDouble(const std::string& word)
 }
 
 bool Porter2Stemmer::internal::replaceIfExists(
-    std::string& word, meta::util::string_view suffix,
-    meta::util::string_view replacement, size_t start)
+        std::string& word, meta::util::string_view suffix,
+        meta::util::string_view replacement, size_t start)
 {
     if (suffix.size() > word.size())
         return false;
