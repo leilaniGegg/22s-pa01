@@ -10,9 +10,9 @@
 using namespace std;
 
 int main(int argc, char* const argv[]) {
-    if(argc == 1){
+    //if(argc == 1){
         return Catch::Session().run();
-    }
+   /* }
     else {
         FileManager IO;
         TrainingData training;
@@ -27,7 +27,7 @@ int main(int argc, char* const argv[]) {
         testing.compareSentiments(IO.readFile(argv[3]));
         testing.calculateAccuracy();
         cout << testing.getAccuracy() << endl;
-    }
+    }*/
 
     return 0;
 }
