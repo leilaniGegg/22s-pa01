@@ -6,9 +6,9 @@
 
 Tweet::Tweet(const DSString& tweet, long ID){
     this->ID = ID;
-    vector<DSString> wordsFromTweet = tweet.parseTweet(" ,.()!$#?@&*-\"");
+    vector<DSString> wordsFromTweet = tweet.parseTweet(" ,.()!?;/`_$#%'…{}|+~@:&*-\"");
     for(int i = 0; i < wordsFromTweet.size(); i++){
-        words.push_back(Word(wordsFromTweet.at(i)));
+            words.push_back(Word(wordsFromTweet.at(i)));
     }
 }
 

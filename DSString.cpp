@@ -125,8 +125,8 @@ DSString DSString::substring(int start, int numChars){
     return DSString(tempWord);
 }
 
-//returns substring from start to end-1
-DSString DSString::substringIndex(int start, int end){
+//returns substring from start to end-1 (not needed for project 1)
+/*DSString DSString::substringIndex(int start, int end){
     if(start == end){
         return DSString("");
     }
@@ -139,7 +139,7 @@ DSString DSString::substringIndex(int start, int end){
         x++;
     }
     return DSString(tempWord);
-}
+} */
 
 char * DSString::c_str() const {
     return word;

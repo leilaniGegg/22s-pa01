@@ -22,7 +22,7 @@ public:
     friend ostream& operator<< (ostream&, const Tweet&);
     void addtoRank(float); // add to the tweet rank
     float getTR()const;
-    void determinePS(); //prediced sentiment
+    void determinePS(); //predicted sentiment
     int getPS();
     void toLower();
 

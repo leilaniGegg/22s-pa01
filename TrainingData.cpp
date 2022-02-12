@@ -4,7 +4,9 @@
 
 #include "TrainingData.h"
 
-//stores tweet and sentiment in a map
+//
+//Stores tweet and sentiment in a map
+//
 void TrainingData::retrieveTS(const vector<vector<DSString>>& trainingData){
      int size = trainingData.at(0).size(); //how many columns
      DSString tweet;
@@ -28,9 +30,10 @@ void TrainingData::displayTS(){
 void TrainingData::calculateWF(){
     map<DSString, int>::iterator itr;
     for(itr = tweetSentiment.begin(); itr != tweetSentiment.end(); itr++){
-        int tempSValue = itr-> second;  //the corresponding sentiment value from the tweetsentiment map
-        DSString tempTweet = itr->first; //the tweet itself from tweetsentiment map
-        vector<DSString> words = tempTweet.parseTweet(" ,.()!?$#@&*-\"");//each word from tweet from tweetsentiment map
+        int tempSValue = itr-> second;  //the corresponding sentiment value from the tweetSentiment map
+        DSString tempTweet = itr->first; //the tweet itself from tweetSentiment map
+        //Store each word from tweet from tweetSentiment map
+        vector<DSString> words = tempTweet.parseTweet(" ,.()!?;/`_$#%'…{}|+~@:&*-\"");
         for (int i = 0; i < words.size(); i++) {
             DSString currWord(words.at(i));
             //if the word is already in the list
@@ -44,7 +47,7 @@ void TrainingData::calculateWF(){
                 }
             }
             else {
-                wordFrequency.insert(pair<DSString, Word>(currWord, Word(words.at(i)))); //add new pair to wordfrequency
+                wordFrequency.insert(pair<DSString, Word>(currWord, Word(currWord))); //add new pair to wordfrequency
                if (tempSValue == 0) {
                    auto itr3 = wordFrequency.find(currWord);
                    itr3->second.incrementNegative();
@@ -59,6 +62,9 @@ void TrainingData::calculateWF(){
     calculateRanks();
 }
 
+//
+//Calculate its ranking based on positive and negative counts
+//
 void TrainingData::calculateRanks() {
     map<DSString, Word>::iterator itr;
     for(itr = wordFrequency.begin(); itr != wordFrequency.end(); itr++){
@@ -69,11 +75,10 @@ void TrainingData::calculateRanks() {
 void TrainingData::displayWF(){
     map<DSString, Word>::iterator itr;
     for(itr = wordFrequency.begin(); itr != wordFrequency.end(); itr++){
-        cout << itr->first << " -- P:" << itr->second.getPCount() << "  N:" << itr->second.getNCount()
-        << "  R: " << itr->second.getRank() << endl;
+        cout << itr->first << " -- R:" << itr->second.getRank() << endl;
     }
 }
-//might need this function?
+
 map<DSString, Word, DSStringCompare>& TrainingData::getWF(){
     return wordFrequency;
 }

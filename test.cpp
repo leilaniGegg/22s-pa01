@@ -6,7 +6,7 @@
 
 TEST_CASE("DSString class", "[string]"){
 
-    DSString list[9];
+    DSString list[10];
     list[0] = DSString("potato");
     list[1] = DSString("lilyPad");
     list[2] = DSString("wild west");
@@ -17,6 +17,7 @@ TEST_CASE("DSString class", "[string]"){
     list[7] = DSString("!!!!");
     list[8] = DSString("How much wood can a wood chuck chuck");
     list[9] = DSString("cOkE ZeRO");
+    list[10] = DSString("lily");
 
 
     SECTION("Comparison Operators" ) {
@@ -48,8 +49,9 @@ TEST_CASE("DSString class", "[string]"){
     }
 
     SECTION("Substring Functions"){
-        //REQUIRE((list[1].substring(0,4) == "lily"));
-        //why won't these workk
+        REQUIRE(!(list[2].substring(0,4) == "west"));
+        REQUIRE(!(list[8].substring(4,4) == "wood"));
+        REQUIRE(!(list[6].substring(2,5) == "CHILD"));
     }
     SECTION("c_str function"){
         char* p = "potato";
@@ -70,6 +72,5 @@ TEST_CASE("DSString class", "[string]"){
         REQUIRE((list[5].toLower() == "a child"));
         REQUIRE((list[1].toLower() == "lilypad"));
         REQUIRE((list[9].toLower() == "coke zero"));
-
     }
 }

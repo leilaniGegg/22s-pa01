@@ -34,7 +34,7 @@ void FileManager::writeToFile(const DSString& filename, TestingData& temp){
         cout << "Failed to open training file!" << endl;
         throw std::runtime_error("Stupid file");
     }
-    file << setprecision(3) << temp.getAccuracy() << endl;
+    file << "Accuracy: " << setprecision(3) << temp.getAccuracy() << endl;
     vector<long>* wrong = &temp.getIT();
     for(int i = 0; i < wrong->size(); i++){
         file << wrong->at(i) << endl;

@@ -15,13 +15,15 @@
 
 class TrainingData{
 private:
-    map<DSString, int, DSStringCompare> tweetSentiment; //tweet and sentiment number (0 or 4)
-    map<DSString, Word, DSStringCompare> wordFrequency;  //word and frequency( >0 for positive sentiment and <0 for negative sentiment)
+    //tweet and sentiment number (0 or 4)
+    map<DSString, int, DSStringCompare> tweetSentiment;
+    //DSString and  word object with frequency( >0 for positive sentiment and <0 for negative sentiment)
+    map<DSString, Word, DSStringCompare> wordFrequency;
 
 public:
     void retrieveTS(const vector<vector<DSString>>&);  //the tweet sentiment, in training we don't care about id, username, etc
     void displayTS();
-    void calculateWF(); //not sure if this is right format
+    void calculateWF();
     void displayWF();
     map<DSString, Word, DSStringCompare>& getWF();
     void calculateRanks();
