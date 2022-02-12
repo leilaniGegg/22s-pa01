@@ -10,7 +10,7 @@ void TestingData::retrieveTI(const vector<vector<DSString>>& testingData){
     int size = testingData.at(0).size();
     for(int r = 0; r < testingData.size(); r++){
         long ID = atol(testingData.at(r).at(0).c_str());
-        Tweet tweet((testingData.at(r).at(size-1))); //correct syntax?
+        Tweet tweet((testingData.at(r).at(size-1)), ID); //correct syntax?
         tweet.toLower();
         tweetsAndIDs.insert(pair<long, Tweet>(ID, tweet));
     }
@@ -61,7 +61,7 @@ void TestingData::compareSentiments(const vector<vector<DSString>>& input){
             auto itr = tweetsAndIDs.find(ID);
             if(itr->second.getPS() != actualSentiment){
                 //add incorrectly matched tweets to vector
-               incorrectTweets.push_back(itr->second);
+               incorrectTweets.push_back(itr->first);
             }
         }
     }
@@ -79,6 +79,6 @@ float TestingData::getAccuracy()const{
 }
 
 //show incorrect tweet ids
-vector<Tweet>& TestingData::getIT(){
+vector<long>& TestingData::getIT(){
     return incorrectTweets;
 }

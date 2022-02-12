@@ -10,9 +10,9 @@
 using namespace std;
 
 int main(int argc, char* const argv[]) {
-    //if(argc == 1){
+    if(argc == 1){
         return Catch::Session().run();
-    /*}
+    }
     else {
         FileManager IO;
         TrainingData training;
@@ -20,7 +20,7 @@ int main(int argc, char* const argv[]) {
         training.retrieveTS(IO.readFile(argv[1]));
         //Calculate the frequency of each word in the tweets, and store the word in a map (as map<DSString, Word>)
         training.calculateWF();
-        training.displayWF();
+        //training.displayWF();
         TestingData testing;
         //From the testing file, store the tweets and their ID's in a map
         testing.retrieveTI(IO.readFile(argv[2]));
@@ -31,8 +31,8 @@ int main(int argc, char* const argv[]) {
         //Compare predicted sentiment to actual sentiment
         testing.compareSentiments(IO.readFile(argv[3]));
         testing.calculateAccuracy();
-        cout << testing.getAccuracy() << endl;
-    }*/
+        IO.writeToFile(argv[4], testing);
+    }
 
     return 0;
 }

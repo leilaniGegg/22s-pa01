@@ -16,7 +16,7 @@ private:
     float tweetRank;  //adding up the ranks of every word in the tweet
 
 public:
-    Tweet(const DSString&);
+    Tweet(const DSString&, long);
     int getID()const;
     vector<Word> getWords()const;
     friend ostream& operator<< (ostream&, const Tweet&);

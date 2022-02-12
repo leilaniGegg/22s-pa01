@@ -12,7 +12,7 @@
 class TestingData{
 private:
     map<long, Tweet> tweetsAndIDs;
-    vector<Tweet> incorrectTweets;
+    vector<long> incorrectTweets;
     float accuracy = 0;
 
 public:
@@ -23,7 +23,7 @@ public:
     void compareSentiments(const vector<vector<DSString>>&);
     void calculateAccuracy();
     float getAccuracy()const;
-    vector<Tweet>& getIT(); //show incorrect tweets
+    vector<long>& getIT(); //show incorrect tweets
 
 
 

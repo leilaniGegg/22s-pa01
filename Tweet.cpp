@@ -4,8 +4,8 @@
 
 #include "Tweet.h"
 
-//this shouldd work??
-Tweet::Tweet(const DSString& tweet){
+Tweet::Tweet(const DSString& tweet, long ID){
+    this->ID = ID;
     vector<DSString> wordsFromTweet = tweet.parseTweet(" ,.()!$#?@&*-\"");
     for(int i = 0; i < wordsFromTweet.size(); i++){
         words.push_back(Word(wordsFromTweet.at(i)));

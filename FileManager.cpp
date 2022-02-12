@@ -32,10 +32,12 @@ void FileManager::writeToFile(const DSString& filename, TestingData& temp){
     file.open(filename.c_str());
     if (!file.is_open()) {
         cout << "Failed to open training file!" << endl;
+        throw std::runtime_error("Stupid file");
     }
-    file << temp.getAccuracy() << endl;
-    vector<Tweet>* wrong = &temp.getIT();
+    file << setprecision(3) << temp.getAccuracy() << endl;
+    vector<long>* wrong = &temp.getIT();
     for(int i = 0; i < wrong->size(); i++){
-        file << wrong->at(i).getID() << endl;
+        file << wrong->at(i) << endl;
     }
+    file.close();
 }
